@@ -5,3 +5,12 @@ repos:
       - id: check-yaml
       - id: end-of-file-fixer
       - id: trailing-whitespace
+
+  # Go-specific hooks
+  - repo: https://github.com/TekWizely/pre-commit-golang
+    rev: v1.0.0-rc.1
+    hooks:
+      - id: go-fmt         # Formats code with `gofmt`
+      - id: go-imports     # Formats + organizes imports
+      - id: go-vet         # Basic Go correctness checks
+      - id: go-lint        # Runs `golint`
