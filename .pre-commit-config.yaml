@@ -10,7 +10,15 @@ repos:
   - repo: https://github.com/TekWizely/pre-commit-golang
     rev: v1.0.0-rc.1
     hooks:
+      - id: go-mod-tidy
+      - id: go-mod-tidy-repo
       - id: go-fmt         # Formats code with `gofmt`
-      - id: go-imports     # Formats + organizes imports
+        args: [-w]         # Write result to source file instead of stdout
+      # - id: go-imports     # Formats + organizes imports
+        # args: [--fix]
       - id: go-vet         # Basic Go correctness checks
-      - id: go-lint        # Runs `golint`
+      #- id: golangci-lint
+      #- id: golangci-lint-mod
+      #- id: golangci-lint-pkg
+      #- id: golangci-lint-repo-mod
+      #- id: golangci-lint-repo-pkg
