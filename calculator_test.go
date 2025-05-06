@@ -1,7 +1,8 @@
-package main
+package calculator_test
 
 import (
 	"bufio"
+	"localhost/calculator"
 	"math"
 	"strings"
 	"testing"
@@ -27,17 +28,17 @@ func TestGetNumber(t *testing.T) {
 			reader := bufio.NewReader(strings.NewReader(tt.input))
 
 			// Call function
-			got, err := getNumber(reader, "Test prompt:")
+			got, err := calculator.GetNumber(reader, "Test prompt:")
 
 			// Check error
 			if (err != nil) != tt.wantErr {
-				t.Errorf("getNumber() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("calculator.GetNumber() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 
 			// Check value
 			if !tt.wantErr && got != tt.want {
-				t.Errorf("getNumber() = %v, want %v", got, tt.want)
+				t.Errorf("calculator.GetNumber() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -56,13 +57,13 @@ func TestCalculate(t *testing.T) {
 		{"subtraction", 7.36, 5.3, "-", 2.06, ""},
 		{"multiplication", 3.0, 7.0, "*", 21.0, ""},
 		{"division", 8.0, 4.0, "/", 2.0, ""},
-    {"division by zero", 13.0, 0, "/", 0, "Division by zero"},
-    {"invalid operation", 3.0, 4.0, "abc", 0, "Invalid operation"},
+		{"division by zero", 13.0, 0, "/", 0, "Division by zero"},
+		{"invalid operation", 3.0, 4.0, "abc", 0, "Invalid operation"},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := calculate(tt.a, tt.b, tt.operation)
+			got, err := calculator.Calculate(tt.a, tt.b, tt.operation)
 
 			// Check error cases
 			if tt.wantErr != "" {
@@ -88,6 +89,6 @@ func TestCalculate(t *testing.T) {
 
 // Floating-point comparison helper
 func almostEqual(a, b float64) bool {
-    const tolerance = 1e-8
-    return math.Abs(a-b) < tolerance
+	const tolerance = 1e-8
+	return math.Abs(a-b) < tolerance
 }
