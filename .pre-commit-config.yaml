@@ -17,8 +17,3 @@ repos:
       # - id: go-imports     # Formats + organizes imports
         # args: [--fix]
       - id: go-vet         # Basic Go correctness checks
-      #- id: golangci-lint
-      #- id: golangci-lint-mod
-      #- id: golangci-lint-pkg
-      #- id: golangci-lint-repo-mod
-      #- id: golangci-lint-repo-pkg
