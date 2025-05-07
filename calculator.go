@@ -34,7 +34,7 @@ func GetNumber(reader *bufio.Reader, prompt string) (float64, error) {
 	str, _ := reader.ReadString('\n')
 	val, err := strconv.ParseFloat(strings.TrimSpace(str), 64)
 	if err != nil {
-		return 0, fmt.Errorf("Invalid number: %v", err)
+		return 0, fmt.Errorf("invalid number: %v", err)
 	}
 	return val, err
 }
@@ -49,10 +49,10 @@ func Calculate(a, b float64, operation string) (float64, error) {
 		return a * b, nil
 	case "/":
 		if b == 0 {
-			return 0, fmt.Errorf("Division by zero")
+			return 0, fmt.Errorf("division by zero")
 		}
 		return a / b, nil
 	default:
-		return 0, fmt.Errorf("Invalid operation: %s", operation)
+		return 0, fmt.Errorf("invalid operation: %s", operation)
 	}
 }

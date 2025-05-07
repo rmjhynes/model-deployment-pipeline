@@ -57,8 +57,8 @@ func TestCalculate(t *testing.T) {
 		{"subtraction", 7.36, 5.3, "-", 2.06, ""},
 		{"multiplication", 3.0, 7.0, "*", 21.0, ""},
 		{"division", 8.0, 4.0, "/", 2.0, ""},
-		{"division by zero", 13.0, 0, "/", 0, "Division by zero"},
-		{"invalid operation", 3.0, 4.0, "abc", 0, "Invalid operation"},
+		{"division by zero", 13.0, 0, "/", 0, "division by zero"},
+		{"invalid operation", 3.0, 4.0, "abc", 0, "invalid operation"},
 	}
 
 	for _, tt := range tests {
