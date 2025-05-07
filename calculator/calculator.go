@@ -3,38 +3,9 @@ package calculator
 import (
 	"bufio"
 	"fmt"
-	"log"
-	"os"
 	"strconv"
 	"strings"
 )
-
-func main() {
-	reader := bufio.NewReader(os.Stdin)
-
-	// Get user input
-	num1, err := GetNumber(reader, "Enter first number: ")
-	if err != nil {
-		log.Fatalf("invalid first number")
-	}
-
-	num2, err := GetNumber(reader, "Enter second number: ")
-	if err != nil {
-		log.Fatalf("invalid second number")
-	}
-
-	fmt.Print("Choose operation (+, -, *, /): ")
-	op, _ := reader.ReadString('\n')
-	op = strings.TrimSpace(op)
-
-	// Calculate result
-	result, err := Calculate(num1, num2, op)
-	if err != nil {
-		log.Fatalf("Calculation error: %v", err)
-	}
-
-	fmt.Printf("Result: %.2f\n", result)
-}
 
 func GetNumber(reader *bufio.Reader, prompt string) (float64, error) {
 	fmt.Print(prompt)

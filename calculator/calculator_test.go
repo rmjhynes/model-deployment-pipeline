@@ -2,7 +2,7 @@ package calculator_test
 
 import (
 	"bufio"
-	"localhost/calculator"
+	"localhost/calculator/calculator"
 	"math"
 	"strings"
 	"testing"
