@@ -14,7 +14,14 @@ func main() {
 
 	// Get user input
 	num1, err := GetNumber(reader, "Enter first number: ")
+	if err != nil {
+		log.Fatalf("invalid first number")
+	}
+
 	num2, err := GetNumber(reader, "Enter second number: ")
+	if err != nil {
+		log.Fatalf("invalid second number")
+	}
 
 	fmt.Print("Choose operation (+, -, *, /): ")
 	op, _ := reader.ReadString('\n')
