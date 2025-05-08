@@ -1,0 +1,14 @@
+# VCS
+.git
+.gitignore
+
+# Editor and OS files
+*.DS_Store
+*.log
+
+# Docker artifacts
+Dockerfile
+.dockerignore
+
+# Tests
+**/*_test.go
