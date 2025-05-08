@@ -28,8 +28,8 @@ jobs:
       - name: Test with the Go CLI
         run: go test -v ./...
 
-      - name: Build image
-        run: docker build .
+      - name: Build image and tag with git commit hash
+        run: docker build -t go-calculator:ci-${{ github.sha }} .
 
   secure:
     runs-on: ubuntu-latest
