@@ -33,7 +33,7 @@ jobs:
         run: go test -v ./...
 
       - name: Build image and tag with git commit hash
-        run: docker build -t ${{ env.IMAGE_NAME }} .
+        run: docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} .
 
       - name: Login to GitHub Container registry
         uses: docker/login-action@v3
