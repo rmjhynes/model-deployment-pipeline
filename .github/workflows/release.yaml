@@ -60,20 +60,22 @@ jobs:
       - name: Verify image
         run: docker images
 
+      - name: Trivy vulnerability scan
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: 'image'
+          image-ref: '${{ env.IMAGE_NAME }}'
+          format: 'table'
+          severity: 'UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL'
+
       - name: Generate SBOM
         uses: aquasecurity/trivy-action@0.28.0
         with:
           scan-type: 'image'
-          format: 'spdx-json'
+          format: 'github'
           output: 'dependency-results.sbom.json'
           image-ref: '${{ env.IMAGE_NAME }}'
           github-pat: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Scan SBOM
-        uses: aquasecurity/trivy-action@0.28.0
-        with:
-          input: dependency-results.sbom.json
-          severity: 'CRITICAL,HIGH'
 
   test:
     runs-on: ubuntu-latest
