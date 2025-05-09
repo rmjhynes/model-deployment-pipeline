@@ -3,7 +3,8 @@ name: Release
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}/go-calculator:ci-${{ github.sha }}
+  IMAGE_NAME: go-calculator
+  IMAGE_TAG: ci-${{ github.sha }}
 
 on:
   push:
@@ -33,16 +34,16 @@ jobs:
         run: go test -v ./...
 
       - name: Build image and tag with git commit hash
-        run: docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} .
+        run: docker build -t ${{ env.IMAGE_NAME }} .
 
       - name: Save Docker image as tar file
-        run: docker save ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} -o ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}.tar
+        run: docker save ${{ env.IMAGE_NAME }} -o images/${{ env.IMAGE_NAME }}.tar
         
       - name: Upload Docker image as artifact
         uses: actions/upload-artifact@v4
         with:
           name: docker-image
-          path: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}.tar
+          path: images/${{ env.IMAGE_NAME }}.tar
 
   secure:
     runs-on: ubuntu-latest
@@ -54,7 +55,7 @@ jobs:
           name: docker-image
           
       - name: Load Docker image
-        run: docker load -i ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}.tar
+        run: docker load -i images/${{ env.IMAGE_NAME }}.tar
         
       - name: Verify image
         run: docker images
@@ -64,7 +65,7 @@ jobs:
         with:
           format: 'spdx-json'
           output: 'sbom.json'
-          image-ref: '${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}'
+          image-ref: '${{ env.IMAGE_NAME }}'
 
       - name: Scan SBOM
         uses: aquasecurity/trivy-action@0.28.0
