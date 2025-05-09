@@ -12,9 +12,10 @@ on:
       - main
   workflow_dispatch:
 
+
+# GITHUB_TOKEN authentication, (used since I'm not going to use a PAT)
 permissions:
-  contents: read
-  packages: write
+  contents: write
 
 jobs:
   build:
