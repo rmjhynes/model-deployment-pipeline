@@ -37,13 +37,13 @@ jobs:
         run: docker build -t ${{ env.IMAGE_NAME }} .
 
       - name: Save Docker image as tar file
-        run: docker save ${{ env.IMAGE_NAME }} -o images/${{ env.IMAGE_NAME }}.tar
+        run: docker save ${{ env.IMAGE_NAME }} -o ${{ env.IMAGE_NAME }}.tar
         
       - name: Upload Docker image as artifact
         uses: actions/upload-artifact@v4
         with:
           name: docker-image
-          path: images/${{ env.IMAGE_NAME }}.tar
+          path: ${{ env.IMAGE_NAME }}.tar
 
   secure:
     runs-on: ubuntu-latest
@@ -55,7 +55,7 @@ jobs:
           name: docker-image
           
       - name: Load Docker image
-        run: docker load -i images/${{ env.IMAGE_NAME }}.tar
+        run: docker load -i ${{ env.IMAGE_NAME }}.tar
         
       - name: Verify image
         run: docker images
