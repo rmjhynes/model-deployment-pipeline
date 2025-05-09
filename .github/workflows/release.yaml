@@ -43,7 +43,6 @@ jobs:
         with:
           name: docker-image
           path: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}.tar
-        retention-days: 1
 
   secure:
     runs-on: ubuntu-latest
