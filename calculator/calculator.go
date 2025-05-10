@@ -2,10 +2,30 @@ package calculator
 
 import (
 	"bufio"
+	"context"
 	"fmt"
+	"github.com/jackc/pgx/v5"
+	"os"
 	"strconv"
 	"strings"
 )
+
+// Used for performing postgres database operations
+type Repository struct {
+	conn *pgx.Conn
+}
+
+// Take database connection string and initialise Repository
+func NewRepository(ctx context.Context, connStr string) (*Repository, error) {
+	conn, err := pgx.Connect(ctx, connStr)
+	if err != nil {
+		_, _ = fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
+		return nil, err
+	}
+	return &Repository{
+		conn: conn,
+	}, nil
+}
 
 func GetNumber(reader *bufio.Reader, prompt string) (float64, error) {
 	fmt.Print(prompt)
@@ -33,4 +53,12 @@ func Calculate(a, b float64, operation string) (float64, error) {
 	default:
 		return 0, fmt.Errorf("invalid operation: %s", operation)
 	}
+}
+
+// Write calculation details to DB
+func (r Repository) SaveCalculation(ctx context.Context, calculation Calculation) (Calculation, error) {
+	err := r.conn.QueryRow(ctx,
+		"INSERT INTO calculations (number1, number2, operator, result) VALUES ($1, $2, $3, $4) RETURNING id",
+		calculation.Number1, calculation.Number2, calculation.Operator, calculation.Result).Scan(&calculation.Id)
+	return calculation, err
 }
