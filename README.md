@@ -1,8 +1,10 @@
 # Model Deployment Pipeline
 A repo to model the desired steps in a CI pipeline to build and release a containerised application image.
+The CI tool of choice is GitHub Actions as it integrates well with this GitHub repo and is the tool I would most likely use at work.
 
 # Language
 The application code is written in Go. Why Go? I never write Go so thought I would switch it up from Python.
+The actual application is an extremely basic calculator because I needed something to build as an image to release.
 
 # Pipeline Stages
 ## Source
