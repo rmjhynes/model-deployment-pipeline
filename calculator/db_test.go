@@ -52,4 +52,8 @@ func TestSaveCalculation(t *testing.T) {
 	})
 	assert.NoError(t, err)
 	assert.NotNil(t, c)
+
+	calculation, err := calculationRepo.GetCalculations(ctx)
+	assert.NoError(t, err)
+	assert.NotNil(t, calculation)
 }

@@ -62,3 +62,14 @@ func (r Repository) SaveCalculation(ctx context.Context, calculation Calculation
 		calculation.Number1, calculation.Number2, calculation.Operator, calculation.Result).Scan(&calculation.Id)
 	return calculation, err
 }
+
+// Get all rows from DB
+func (r Repository) GetCalculations(ctx context.Context) (Calculation, error) {
+	var calculation Calculation
+	query := "SELECT * FROM calculations"
+	err := r.conn.QueryRow(ctx, query).Scan(&calculation.Id, &calculation.Number1, &calculation.Number2, &calculation.Operator, &calculation.Result)
+	if err != nil {
+		return Calculation{}, err
+	}
+	return calculation, nil
+}
