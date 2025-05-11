@@ -94,6 +94,6 @@ jobs:
         uses: actions/setup-go@v5
 
       - name: Run integration tests
-        run: go test -v -tags=integration ./...
+        run: go test -v -tags=integration ./... -count=1
 
 
