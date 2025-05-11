@@ -94,6 +94,8 @@ jobs:
         uses: actions/setup-go@v5
 
       - name: Run integration tests
+        # -count=1 disables test caching to ensure fresh execution with containers/DB state
+        # Required because integration tests rely on external systems that change between runs
         run: go test -v -tags=integration ./... -count=1
 
 
