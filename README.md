@@ -17,8 +17,11 @@ Once merged, the GitHub Actions CI pipeline is triggered.
 - Build Docker image to containerise the application code.
 
 ## Secure
-- Scan Docker image for _all_ severity vulnerabilties with [Trivy](trivy.dev/) and output in table format.
+- Scan Docker image for _all_ severity vulnerabilties with [Trivy](https://trivy.dev/) and output in table format.
 - Generate SBOM of all the project dependencies and send to GitHub Dependency Graph for visibility within the GitHub repo.
 
 ## Test
-- Run integration tests with [Testcontainers](https://testcontainers.com/) to check the application can interact with other containerised instances.
+- Run integration tests with [Testcontainers](https://testcontainers.com/) to check the application can interact with other containerised instances. In this case, the calculation details are written to a containerised PostgreSQL database.
+
+## Release
+- Push Docker image to GitHub Container Registry.
