@@ -13,12 +13,8 @@ on:
       - main
   workflow_dispatch:
 
-
-# GITHUB_TOKEN authentication to sumbit SBOM results to GitHub Dependency Graph
-# (necessary since I'm not going to use a PAT)
 permissions:
-  contents: write
-  packages: write
+  contents: read
 
 jobs:
   build:
@@ -56,6 +52,10 @@ jobs:
   secure:
     runs-on: ubuntu-latest
     needs: build
+    # GITHUB_TOKEN authentication to sumbit SBOM results to GitHub Dependency Graph
+    # (necessary since I'm not going to use a PAT)
+    permissions:
+      contents: write
     steps:
       - name: Download Docker image
         uses: actions/download-artifact@v4
@@ -103,6 +103,8 @@ jobs:
   release:
     runs-on: ubuntu-latest
     needs: [build, secure, test]
+    permissions:
+      packages: write
     steps:
       - name: Download Docker image
         uses: actions/download-artifact@v4
