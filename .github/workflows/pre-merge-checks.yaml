@@ -6,14 +6,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint:
+  golangci-lint:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
-        # Fetch all Git commits from repo (needed for trugglehog)
-        with:
-          fetch-depth: 0
 
       - name: Setup Go
         uses: actions/setup-go@v5
@@ -22,6 +19,15 @@ jobs:
         uses: golangci/golangci-lint-action@v8
         with:
           version: v2.1.6
+
+  trufflehog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+        # Fetch all Git commits from repo (needed for trugglehog)
+        with:
+          fetch-depth: 0
 
       - name: Secret Scanning
         uses: trufflesecurity/trufflehog@main
