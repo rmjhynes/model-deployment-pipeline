@@ -11,6 +11,7 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
+        # Fetch all Git commits from repo (needed for trugglehog)
         with:
           fetch-depth: 0
 
